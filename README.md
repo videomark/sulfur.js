@@ -1,12 +1,12 @@
 # 統計情報収集ライブラリ (sulfur library API)
 
-ライブラリの形式 どれにする？
+ライブラリの形式は、UMD 形式にして
 
-- esm
-- cjs
-- umd
+<script> で読み込む
 
-_ここかくにん_
+```html
+sample code
+```
 
 ## Constructor
 
@@ -21,10 +21,8 @@ const sulfur = new Sulfur(options);
 | Name    | Type   | Required | Default | Description              |
 | ------- | ------ | :------: | :-----: | ------------------------ |
 | url     | string |    x     |    -    | 送信先エンドポイント     |
-| collect | number |    x     |  10000  | 統計情報収集インターバル |
-| send    | number |    x     |  10000  | 統計情報送信インターバル |
-
-_ここかくにん_
+| collect | number |    x     |  1000  | 統計情報収集インターバル |
+| send    | number |    x     |  5000  | 統計情報送信インターバル |
 
 ## open
 
@@ -61,6 +59,7 @@ peer.on('call', mediaConnection => {
 ## close
 
 統計情報収集終了
+endをつけてデータを送信する
 
 close()
 
