@@ -1,5 +1,13 @@
 # 統計情報収集ライブラリ (sulfur library API)
 
+ライブラリの形式 どれにする？
+
+- esm
+- cjs
+- umd
+
+_ここかくにん_
+
 ## Constructor
 
 ライブラリオブジェクトの生成
@@ -13,8 +21,10 @@ const sulfur = new Sulfur(options);
 | Name    | Type   | Required | Default | Description              |
 | ------- | ------ | :------: | :-----: | ------------------------ |
 | url     | string |    x     |    -    | 送信先エンドポイント     |
-| collect | number |    x     |  1000   | 統計情報収集インターバル |
-| send    | number |    x     |  5000   | 統計情報送信インターバル |
+| collect | number |    x     |  10000  | 統計情報収集インターバル |
+| send    | number |    x     |  10000  | 統計情報送信インターバル |
+
+_ここかくにん_
 
 ## open
 
@@ -26,17 +36,27 @@ open(peer, connection)
 const peer = new Peer({
   key: API_KEY,
 });
-const connection = peer.call(remoteId, localStream);
 
 const sulfur = new Sulfur();
 
-sulfur.open(peer, connection);
+...
+// 発信時
+const connection = peer.call(remoteId, localStream);
+sulfur.open(peer, connection, video);
+
+...
+// 着信時
+peer.on('call', mediaConnection => {
+  mediaConnection.answer(localStream);
+  sulfur.open(peer, mediaConnection, );
+});
 ```
 
-| Name       | Type                                                                                        | Required | Default | Description              |
-| ---------- | ------------------------------------------------------------------------------------------- | :------: | :-----: | ------------------------ |
-| peer       | [Peer](https://webrtc.ecl.ntt.com/api-reference/javascript.html#peer)                       |    o     |    -    | 送信先エンドポイント     |
-| connection | [MediaConnection](https://webrtc.ecl.ntt.com/api-reference/javascript.html#mediaconnection) |    o     |    -    | 統計情報収集インターバル |
+| Name       | Type                                                                                        | Required | Default | Description                                |
+| ---------- | ------------------------------------------------------------------------------------------- | :------: | :-----: | ------------------------------------------ |
+| peer       | [Peer](https://webrtc.ecl.ntt.com/api-reference/javascript.html#peer)                       |    o     |    -    | SkyWay API の Peer オブジェクト            |
+| connection | [MediaConnection](https://webrtc.ecl.ntt.com/api-reference/javascript.html#mediaconnection) |    o     |    -    | SkyWay API の MediaConnection オブジェクト |
+| video      | HTMLMediaElement                                                                            |    o     |    -    | 通話用の Video Element                     |
 
 ## close
 
@@ -53,28 +73,32 @@ sulfur.close();
 
 統計情報収集一時停止
 
+video を mute 時に実行
+
 pause()
 
 ```javascript
-// ミュートボタン
-document.getElementById("mute-on").onclick = () => {
-  localStream.getVideoTracks().forEach((track) => (track.enabled = false));
-  sulfur.pause();
-};
+connection.on("data", (data) => {
+  if (data === "mute") {
+    sulfur.pause();
+  }
+});
 ```
 
-## start
+## resume
 
 統計情報収集再開
 
-start()
+video を unmute 時に実行
+
+resume()
 
 ```javascript
-// ミュート解除ボタン
-document.getElementById("mute-off").onclick = () => {
-  localStream.getVideoTracks().forEach((track) => (track.enabled = true));
-  sulfur.start();
-};
+connection.on("data", (data) => {
+  if (data === "unmute") {
+    sulfur.resume();
+  }
+});
 ```
 
 ## Events
