@@ -1,12 +1,14 @@
 # 統計情報収集ライブラリ (sulfur library API)
 
-ライブラリの形式は、UMD 形式にして
-
-<script> で読み込む
+\<script\> で読み込む
 
 ```html
-sample code
+<script src="./sulfur.js "></script>
 ```
+
+## TODO
+
+- 確認 [umd のバンドラーによって global のオブジェクトへのはやし方に違いがあるので気をつけて]
 
 ## Constructor
 
@@ -21,8 +23,8 @@ const sulfur = new Sulfur(options);
 | Name    | Type   | Required | Default | Description              |
 | ------- | ------ | :------: | :-----: | ------------------------ |
 | url     | string |    x     |    -    | 送信先エンドポイント     |
-| collect | number |    x     |  1000  | 統計情報収集インターバル |
-| send    | number |    x     |  5000  | 統計情報送信インターバル |
+| collect | number |    x     |  1000   | 統計情報収集インターバル |
+| send    | number |    x     |  5000   | 統計情報送信インターバル |
 
 ## open
 
@@ -59,7 +61,7 @@ peer.on('call', mediaConnection => {
 ## close
 
 統計情報収集終了
-endをつけてデータを送信する
+end をつけてデータを送信する
 
 close()
 
@@ -68,34 +70,34 @@ connection.close(true);
 sulfur.close();
 ```
 
-## pause
+## setMute
 
-統計情報収集一時停止
+統計情報に mute フラグをつける
 
 video を mute 時に実行
 
-pause()
+setMute()
 
 ```javascript
 connection.on("data", (data) => {
   if (data === "mute") {
-    sulfur.pause();
+    sulfur.setMute();
   }
 });
 ```
 
-## resume
+## unsetMute
 
-統計情報収集再開
+統計情報の mute フラグを取り外す
 
 video を unmute 時に実行
 
-resume()
+unsetMute()
 
 ```javascript
 connection.on("data", (data) => {
   if (data === "unmute") {
-    sulfur.resume();
+    sulfur.unsetMute();
   }
 });
 ```
