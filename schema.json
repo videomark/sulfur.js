@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "SulfurData": {
+      "type": "object",
+      "properties": {
+        "peerId": {
+          "type": "string",
+          "title": "peerId"
+        },
+        "remoteId": {
+          "type": "string",
+          "title": "remoteId"
+        },
+        "apikey": {
+          "type": "string",
+          "title": "apikey"
+        },
+        "additionalId": {
+          "type": "string",
+          "title": "additionalId"
+        },
+        "statsSeq": {
+          "type": "number",
+          "title": "statsSeq"
+        },
+        "stats": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "title": "id"
+                },
+                "timestamp": {
+                  "type": "number",
+                  "title": "timestamp"
+                },
+                "type": {
+                  "enum": [
+                    "candidate-pair",
+                    "certificate",
+                    "codec",
+                    "csrc",
+                    "data-channel",
+                    "ice-server",
+                    "inbound-rtp",
+                    "local-candidate",
+                    "media-source",
+                    "outbound-rtp",
+                    "peer-connection",
+                    "receiver",
+                    "remote-candidate",
+                    "remote-inbound-rtp",
+                    "remote-outbound-rtp",
+                    "sctp-transport",
+                    "sender",
+                    "stream",
+                    "track",
+                    "transceiver",
+                    "transport"
+                  ],
+                  "type": "string",
+                  "title": "type"
+                }
+              },
+              "required": ["id", "timestamp", "type"]
+            }
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": ["mute", "resulution", "start", "stop", "unmute"],
+                "type": "string",
+                "title": "type"
+              },
+              "timestamp": {
+                "type": "number",
+                "title": "timestamp"
+              },
+              "value": {
+                "type": "string",
+                "title": "value"
+              }
+            },
+            "required": ["timestamp", "type"]
+          }
+        }
+      },
+      "required": [
+        "peerId",
+        "remoteId",
+        "apikey",
+        "additionalId",
+        "statsSeq",
+        "events",
+        "stats"
+      ]
+    }
+  }
+}
