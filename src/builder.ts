@@ -7,6 +7,7 @@ export class Builder {
   private peerId: string;
   private remoteId: string;
   private additionalId: string;
+  private statsSeq: number;
 
   constructor(
     peerId: string,
@@ -18,19 +19,17 @@ export class Builder {
     this.apiKey = apiKey;
     this.remoteId = remoteId;
     this.additionalId = additionalId;
+    this.statsSeq = 0;
   }
 
-  build(
-    statsSeq: number,
-    stats: RTCStats[][],
-    events: SulfurEvent[]
-  ): SulfurData {
+  build(stats: RTCStats[][], events: SulfurEvent[]): SulfurData {
+    this.statsSeq += stats.length;
     return {
       peerId: this.peerId,
       remoteId: this.remoteId,
       apikey: this.apiKey,
       additionalId: this.additionalId,
-      statsSeq,
+      statsSeq: this.statsSeq,
       stats,
       events,
     };

@@ -29,10 +29,9 @@ class Sulfur extends EventEmitter {
   private timerOfSend: number = null;
   private isCollectInProgress = false;
   private isSendInProgress = false;
-  private countsOfCollect: number = 0;
-  private countsOfSend: number = 0;
+  private countsOfCollect = 0;
+  private countsOfSend = 0;
 
-  private statsSeq = 0;
   private remaining: SulfurData;
 
   private builder: Builder;
@@ -131,7 +130,7 @@ class Sulfur extends EventEmitter {
   private async periodicalCollect() {
     if (this.isCollectInProgress) return;
     this.isCollectInProgress = true;
-    this.stats.collect();
+    await this.stats.collect();
     this.events.checkResolution();
     this.countsOfCollect += 1;
     this.isCollectInProgress = false;
@@ -154,11 +153,7 @@ class Sulfur extends EventEmitter {
           this.stats.drain(),
           this.events.drain()
         )
-      : this.builder.build(
-          this.statsSeq,
-          this.stats.drain(),
-          this.events.drain()
-        );
+      : this.builder.build(this.stats.drain(), this.events.drain());
     try {
       validate(data);
     } catch (e: any) {
