@@ -3,11 +3,10 @@ import Ajv from "ajv";
 import schema from "../schema.json";
 
 export class DataHolder {
-  private readonly apiKey: string;
-  private readonly peerId: string;
-  private readonly remoteId: string;
-  private readonly additionalId: string;
-
+  private apiKey: string;
+  private peerId: string;
+  private remoteId: string;
+  private additionalId: string;
   private statsSeq: number;
 
   constructor(
@@ -23,12 +22,9 @@ export class DataHolder {
     this.statsSeq = 0;
   }
 
-  public addStatsSeq(count: number) {
-    this.statsSeq += count;
-  }
-
-  public build(stats: RTCStats[][], events: SulfurEvent[]): SulfurData {
-    const data: SulfurData = {
+  build(stats: RTCStats[][], events: SulfurEvent[]): SulfurData {
+    this.statsSeq += stats.length;
+    return {
       peerId: this.peerId,
       remoteId: this.remoteId,
       apikey: this.apiKey,
@@ -37,10 +33,9 @@ export class DataHolder {
       stats,
       events,
     };
-    return data;
   }
 
-  public buildFromRemainig(
+  buildFromRemainig(
     remaining: SulfurData,
     stats: RTCStats[][],
     events: SulfurEvent[]
@@ -49,6 +44,7 @@ export class DataHolder {
     const mergeEvents = remaining.events;
     mergeStats.push(...stats);
     mergeEvents.push(...events);
+    this.statsSeq = remaining.statsSeq + mergeStats.length;
     const data: SulfurData = {
       peerId: this.peerId,
       remoteId: this.remoteId,

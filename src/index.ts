@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 
 import Peer, { MediaConnection } from "skyway-js";
 
-import { Builder } from "./builder";
+import { DataHolder } from "./data-holder";
 import { StatsHolder } from "./stats-holder";
 import { EventsHolder } from "./events-holder";
 import { send } from "./sender";
@@ -34,9 +34,9 @@ class Sulfur extends EventEmitter {
 
   private remaining: SulfurData;
 
-  private builder: Builder;
-  private stats: StatsHolder;
-  private events: EventsHolder;
+  private dataHolder: DataHolder;
+  private statsHolder: StatsHolder;
+  private eventsHolder: EventsHolder;
 
   constructor(options?: {
     url?: string;
@@ -96,14 +96,14 @@ class Sulfur extends EventEmitter {
       return;
     }
 
-    this.builder = new Builder(
+    this.dataHolder = new DataHolder(
       peer.id,
       peer.options.key,
       connection.remoteId,
       "additional"
     );
-    this.stats = new StatsHolder(connection);
-    this.events = new EventsHolder(video);
+    this.statsHolder = new StatsHolder(connection);
+    this.eventsHolder = new EventsHolder(video);
 
     this.timerOfCollect = window.setInterval(
       () => this.periodicalCollect(),
@@ -121,7 +121,7 @@ class Sulfur extends EventEmitter {
   public async close() {
     window.clearInterval(this.timerOfCollect);
     window.clearInterval(this.timerOfSend);
-    this.events.emit("stop");
+    this.eventsHolder.emit("stop");
     // send before closing
     await this.send();
     super.emit("closed", this.countsOfCollect, this.countsOfSend);
@@ -130,8 +130,8 @@ class Sulfur extends EventEmitter {
   private async periodicalCollect() {
     if (this.isCollectInProgress) return;
     this.isCollectInProgress = true;
-    await this.stats.collect();
-    this.events.checkResolution();
+    await this.statsHolder.collect();
+    this.eventsHolder.checkResolution();
     this.countsOfCollect += 1;
     this.isCollectInProgress = false;
   }
@@ -148,12 +148,15 @@ class Sulfur extends EventEmitter {
 
   private async send() {
     const data = this.remaining
-      ? this.builder.buildFromRemainig(
+      ? this.dataHolder.buildFromRemainig(
           this.remaining,
-          this.stats.drain(),
-          this.events.drain()
+          this.statsHolder.drain(),
+          this.eventsHolder.drain()
         )
-      : this.builder.build(this.stats.drain(), this.events.drain());
+      : this.dataHolder.build(
+          this.statsHolder.drain(),
+          this.eventsHolder.drain()
+        );
     try {
       validate(data);
     } catch (e: any) {
