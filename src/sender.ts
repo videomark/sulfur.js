@@ -1,17 +1,18 @@
-import msgpack from "msgpack-lite";
+import axios from "axios";
+import pako from "pako";
 
 export async function send(data: SulfurData, url: string): Promise<void> {
   try {
-    const packed = msgpack.encode(data);
-    const ret = await fetch(url, {
-      method: "POST",
+    const compress = pako.gzip(JSON.stringify(data));
+    await axios.post(url, compress, {
       headers: {
-        "Content-type": "application/msgpack",
+        "Content-Type": "application/json",
+        "Content-Encoding": "gzip",
       },
-      body: packed,
     });
-    if (!ret.ok) throw new Error("response was not ok.");
-  } catch (e: any) {
-    throw new Error();
+  } catch (err: any) {
+    throw new Error(
+      `status: ${err.response.status}, message:${err.response.data}`
+    );
   }
 }
