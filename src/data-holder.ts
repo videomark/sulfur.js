@@ -23,8 +23,7 @@ export class DataHolder {
   }
 
   build(stats: RTCStats[][], events: SulfurEvent[]): SulfurData {
-    this.statsSeq += stats.length;
-    return {
+    const data: SulfurData = {
       peerId: this.peerId,
       remoteId: this.remoteId,
       apikey: this.apiKey,
@@ -33,6 +32,8 @@ export class DataHolder {
       stats,
       events,
     };
+    this.statsSeq += stats.length;
+    return data;
   }
 
   buildFromRemainig(
@@ -44,7 +45,6 @@ export class DataHolder {
     const mergeEvents = remaining.events;
     mergeStats.push(...stats);
     mergeEvents.push(...events);
-    this.statsSeq = remaining.statsSeq + mergeStats.length;
     const data: SulfurData = {
       peerId: this.peerId,
       remoteId: this.remoteId,
@@ -54,6 +54,7 @@ export class DataHolder {
       stats: mergeStats,
       events: mergeEvents,
     };
+    this.statsSeq = remaining.statsSeq + mergeStats.length;
     return data;
   }
 }
