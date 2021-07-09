@@ -1,10 +1,11 @@
 import { EventEmitter } from "events";
 
 export class EventsHolder extends EventEmitter {
+  private readonly video: HTMLVideoElement = null;
+  private readonly events: SulfurEvent[];
+
   private width: number = null;
   private height: number = null;
-  private video: HTMLVideoElement = null;
-  private events: SulfurEvent[];
 
   constructor(video: HTMLVideoElement) {
     super();
@@ -14,14 +15,14 @@ export class EventsHolder extends EventEmitter {
     this.checkResolution();
   }
 
-  generateStartEvent(): void {
+  private generateStartEvent(): void {
     this.events.push({
       type: "start",
       timestamp: new Date().getTime(),
     });
   }
 
-  checkResolution(video?: HTMLVideoElement): void {
+  public checkResolution(video?: HTMLVideoElement): void {
     const target = video ? video : this.video;
     if (!target) return;
     const { width, height } = target.getBoundingClientRect();
@@ -35,11 +36,11 @@ export class EventsHolder extends EventEmitter {
     });
   }
 
-  drain(): SulfurEvent[] {
+  public drain(): SulfurEvent[] {
     return this.events.splice(0, this.events.length);
   }
 
-  emit(type: SulfurEventType): boolean {
+  public emit(type: SulfurEventType): boolean {
     this.events.push({
       type,
       timestamp: new Date().getTime(),

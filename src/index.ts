@@ -169,6 +169,7 @@ class Sulfur extends EventEmitter {
     }
     try {
       await send(data, this.url);
+      this.dataHolder.addStatsSeq(data.stats.length);
       this.remaining = null;
       this.countsOfSend += 1;
     } catch (e: any) {
