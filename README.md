@@ -1,6 +1,6 @@
 # 統計情報収集ライブラリ (sulfur library API)
 
-\<script\> で読み込む
+\<script\> を使用してロードを行う
 
 ```html
 <script src="./sulfur.js "></script>
@@ -28,11 +28,12 @@ const sulfur = new Sulfur(options);
 
 open(peer, connection, video)
 
-| Name       | Type                                                                                        | Required | Default | Description                                |
-| ---------- | ------------------------------------------------------------------------------------------- | :------: | :-----: | ------------------------------------------ |
-| peer       | [Peer](https://webrtc.ecl.ntt.com/api-reference/javascript.html#peer)                       |    o     |    -    | SkyWay API の Peer オブジェクト            |
-| connection | [MediaConnection](https://webrtc.ecl.ntt.com/api-reference/javascript.html#mediaconnection) |    o     |    -    | SkyWay API の MediaConnection オブジェクト |
-| video      | HTMLVideoElement                                                                            |    o     |    -    | 通話用の Video Element                     |
+| Name         | Type                                                                                        | Required | Default | Description                                |
+| ------------ | ------------------------------------------------------------------------------------------- | :------: | :-----: | ------------------------------------------ |
+| peer         | [Peer](https://webrtc.ecl.ntt.com/api-reference/javascript.html#peer)                       |    o     |    -    | SkyWay API の Peer オブジェクト            |
+| connection   | [MediaConnection](https://webrtc.ecl.ntt.com/api-reference/javascript.html#mediaconnection) |    o     |    -    | SkyWay API の MediaConnection オブジェクト |
+| video        | HTMLVideoElement                                                                            |    o     |    -    | 通話用の Video Element                     |
+| additionalId | string                                                                                      |    x     |   ""    | additional ID                              |
 
 ```javascript
 const peer = new Peer({
@@ -44,13 +45,13 @@ const sulfur = new Sulfur();
 ...
 // 発信時
 const connection = peer.call(remoteId, localStream);
-sulfur.open(peer, connection, video);
+sulfur.open(peer, connection, video, additionalId?);
 
 ...
 // 着信時
 peer.on('call', mediaConnection => {
   mediaConnection.answer(localStream);
-  sulfur.open(peer, mediaConnection, video);
+  sulfur.open(peer, mediaConnection, video, additionalId?);
 });
 ```
 
@@ -117,6 +118,16 @@ sulfur.on("closed", (countsOfCollect, countsOfSend) => {
   // ...
 });
 ```
+
+## 値の取得方法
+
+| 項目         | 取得方法                                       |
+| ------------ | ---------------------------------------------- |
+| peerId       | Peer.id                                        |
+| remoteId     | MediaConnection.remoteId                       |
+| apikey       | Peer.options.key                               |
+| additionalId | 不明                                           |
+| stats        | MediaConnection.getPeerConnection().getStats() |
 
 ## フィルタ処理
 
