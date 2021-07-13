@@ -58,7 +58,10 @@ class Sulfur extends EventEmitter {
   public open(
     peer: Peer,
     connection: MediaConnection,
-    video: HTMLVideoElement
+    options: {
+      video: HTMLVideoElement;
+      additionalId: string;
+    }
   ) {
     if (!peer) {
       super.emit(
@@ -100,10 +103,10 @@ class Sulfur extends EventEmitter {
       peer.id,
       peer.options.key,
       connection.remoteId,
-      "additional"
+      options.additionalId
     );
     this.statsHolder = new StatsHolder(connection);
-    this.eventsHolder = new EventsHolder(video);
+    this.eventsHolder = new EventsHolder(options.video);
 
     this.timerOfCollect = window.setInterval(
       () => this.periodicalCollect(),

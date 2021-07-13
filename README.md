@@ -26,14 +26,20 @@ const sulfur = new Sulfur(options);
 
 統計情報収集開始
 
-open(peer, connection, video)
+open(peer, connection, options)
 
-| Name         | Type                                                                                        | Required | Default | Description                                |
-| ------------ | ------------------------------------------------------------------------------------------- | :------: | :-----: | ------------------------------------------ |
-| peer         | [Peer](https://webrtc.ecl.ntt.com/api-reference/javascript.html#peer)                       |    o     |    -    | SkyWay API の Peer オブジェクト            |
-| connection   | [MediaConnection](https://webrtc.ecl.ntt.com/api-reference/javascript.html#mediaconnection) |    o     |    -    | SkyWay API の MediaConnection オブジェクト |
-| video        | HTMLVideoElement                                                                            |    o     |    -    | 通話用の Video Element                     |
-| additionalId | string                                                                                      |    x     |   ""    | additional ID                              |
+| Name       | Type                                                                                        | Required | Default | Description                                |
+| ---------- | ------------------------------------------------------------------------------------------- | :------: | :-----: | ------------------------------------------ |
+| peer       | [Peer](https://webrtc.ecl.ntt.com/api-reference/javascript.html#peer)                       |    o     |    -    | SkyWay API の Peer オブジェクト            |
+| connection | [MediaConnection](https://webrtc.ecl.ntt.com/api-reference/javascript.html#mediaconnection) |    o     |    -    | SkyWay API の MediaConnection オブジェクト |
+| options    | Object                                                                                      |    x     |    -    | Options オブジェクト                       |
+
+Options
+
+| Name         | Type             | Required | Default | Description            |
+| ------------ | ---------------- | :------: | :-----: | ---------------------- |
+| video        | HTMLVideoElement |    x     |    -    | 通話用の Video Element |
+| additionalId | string           |    x     |   ""    | additional ID          |
 
 ```javascript
 const peer = new Peer({
@@ -45,13 +51,19 @@ const sulfur = new Sulfur();
 ...
 // 発信時
 const connection = peer.call(remoteId, localStream);
-sulfur.open(peer, connection, video, additionalId?);
+sulfur.open(peer, connection, {
+  video,
+  additionalId
+});
 
 ...
 // 着信時
 peer.on('call', mediaConnection => {
   mediaConnection.answer(localStream);
-  sulfur.open(peer, mediaConnection, video, additionalId?);
+  sulfur.open(peer, mediaConnection, {
+    video,
+    additionalId
+});
 });
 ```
 
