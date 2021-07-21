@@ -8,7 +8,7 @@ import { EventsHolder } from "./events-holder";
 import { send } from "./sender";
 import { validate } from "./validator";
 
-const DEFAULT_ENDPOINT = "http://stats-aggregator.stage.gcp.skyway.io/sulfur";
+const DEFAULT_ENDPOINT = "https://stats-aggregator.stage.gcp.skyway.io/sulfur";
 const DEFAULT_COLLECT_INTERVAL = 1000;
 const DEFAULT_SEND_INTERVAL = 5000;
 
