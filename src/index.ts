@@ -139,7 +139,6 @@ class Sulfur extends EventEmitter {
       this.countsOfCollect += 1;
     } catch (err) {
       super.emit("error", new SulfurError("closed", "closed by remote peer"));
-      return;
     } finally {
       this.isCollectInProgress = false;
     }
