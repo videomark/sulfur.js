@@ -132,11 +132,17 @@ class Sulfur extends EventEmitter {
 
   private async periodicalCollect() {
     if (this.isCollectInProgress) return;
-    this.isCollectInProgress = true;
-    await this.statsHolder.collect();
-    this.eventsHolder.checkResolution();
-    this.countsOfCollect += 1;
-    this.isCollectInProgress = false;
+    try {
+      this.isCollectInProgress = true;
+      await this.statsHolder.collect();
+      this.eventsHolder.checkResolution();
+      this.countsOfCollect += 1;
+    } catch (err) {
+      super.emit("error", new SulfurError("closed", "closed by remote peer"));
+      return;
+    } finally {
+      this.isCollectInProgress = false;
+    }
   }
 
   private async periodicalSend() {

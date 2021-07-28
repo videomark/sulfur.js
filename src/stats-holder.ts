@@ -11,8 +11,12 @@ export class StatsHolder {
   }
 
   public async collect(): Promise<void> {
-    const s = await stats(this.connection);
-    if (s) this.stats.push(s);
+    try {
+      const s = await stats(this.connection);
+      if (s) this.stats.push(s);
+    } catch (err) {
+      throw new Error("transport not found. closed by remote peer");
+    }
   }
 
   public drain(): RTCStats[][] {
