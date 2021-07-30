@@ -13,7 +13,7 @@ export class StatsHolder {
   public async collect(): Promise<void> {
     try {
       const s = await stats(this.connection);
-      if (s) this.stats.push(s);
+      if (s) this.stats.push(s.filter((e) => e));
     } catch (err) {
       throw new Error("transport not found. closed by remote peer");
     }
