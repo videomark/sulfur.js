@@ -52,8 +52,8 @@ const sulfur = new Sulfur();
 // 発信時
 const connection = peer.call(remoteId, localStream);
 sulfur.open(peer, connection, {
-  video,
-  additionalId
+  video: document.getElementById("remote-pid"), // 対向のpeerID
+  additionalId: "additionalId"
 });
 
 ...
@@ -61,9 +61,9 @@ sulfur.open(peer, connection, {
 peer.on('call', mediaConnection => {
   mediaConnection.answer(localStream);
   sulfur.open(peer, mediaConnection, {
-    video,
-    additionalId
-});
+    video: document.getElementById("remote-pid"), // 対向のpeerID
+    additionalId: "additionalId"
+  });
 });
 ```
 
