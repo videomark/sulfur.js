@@ -1,12 +1,17 @@
-type SulfurEventType = "start" | "stop" | "mute" | "unmute" | "resulution";
+export type SulfurEventType =
+  | "start"
+  | "stop"
+  | "mute"
+  | "unmute"
+  | "resulution";
 
-type SulfurEvent = {
+export type SulfurEvent = {
   type: SulfurEventType;
   timestamp: number;
   value?: string;
 };
 
-type SulfurData = {
+export type SulfurData = {
   peerId: string;
   remoteId: string;
   apikey: string;

@@ -1,4 +1,5 @@
 import { EventEmitter } from "events";
+import { SulfurEvent, SulfurEventType } from "../types";
 
 export class EventsHolder extends EventEmitter {
   private readonly video: HTMLVideoElement = null;

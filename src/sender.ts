@@ -1,5 +1,6 @@
 import axios from "axios";
 import pako from "pako";
+import { SulfurData } from "../types";
 
 export async function send(data: SulfurData, url: string): Promise<void> {
   try {

@@ -2,6 +2,7 @@ import { EventEmitter } from "events";
 
 import Peer, { MediaConnection } from "skyway-js";
 
+import { SulfurData } from "../types";
 import { DataHolder } from "./data-holder";
 import { StatsHolder } from "./stats-holder";
 import { EventsHolder } from "./events-holder";

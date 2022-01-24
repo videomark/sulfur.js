@@ -1,4 +1,5 @@
 import Ajv from "ajv";
+import { SulfurData } from "../types";
 import schema from "../schema.json";
 
 export function validate(data: SulfurData): void {

@@ -1,5 +1,5 @@
 import Ajv from "ajv";
-
+import { SulfurData, SulfurEvent } from "../types";
 import schema from "../schema.json";
 
 export class DataHolder {
