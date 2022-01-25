@@ -1,7 +1,20 @@
 {
-  "name": "sulfur.js",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@videomark/sulfur.js",
+  "version": "0.0.0",
+  "description": "Sulfur library",
+  "author": "NTT Communications Corp.",
+  "license": "Apache-2.0",
+  "contributors": [
+    "Yuuhei Tazaki <taza@acutus.jp>",
+    "WebDINO Japan <videomark@webdino.org>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/videomark/sulfur.js.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "files": [
@@ -17,9 +30,6 @@
     "build:types": "tsc",
     "test": "jest"
   },
-  "author": "NTT Communications Corp.",
-  "license": "Apache-2.0",
-  "private": true,
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/jest": "^26.0.23",
