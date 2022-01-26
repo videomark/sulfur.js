@@ -3,7 +3,7 @@
 \<script\> を使用してロードを行う
 
 ```html
-<script src="./sulfur.js "></script>
+<script src="https://cdn.jsdelivr.net/npm/@videomark/sulfur.js/dist/sulfur.js"></script>
 ```
 
 ## Constructor
