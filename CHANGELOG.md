@@ -5,7 +5,11 @@
 
 ## [Unreleased]
 
+## [1.0.0] - 2022-01-26
+
 - 最初のリリース
 
 <!-- prettier-ignore -->
 [Unreleased]: https://github.com/videomark/sulfur.js
+
+[1.0.0]: https://github.com/videomark/sulfur.js/compare/null...v1.0.0
