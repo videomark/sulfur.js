@@ -10,6 +10,5 @@
 - 最初のリリース
 
 <!-- prettier-ignore -->
-[Unreleased]: https://github.com/videomark/sulfur.js
-
-[1.0.0]: https://github.com/videomark/sulfur.js/compare/null...v1.0.0
+[Unreleased]: https://github.com/videomark/sulfur.js/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/videomark/sulfur.js/tree/v1.0.0
