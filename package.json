@@ -32,16 +32,17 @@
     "release": "release-it"
   },
   "devDependencies": {
-    "@release-it/keep-a-changelog": "^2.3.0",
+    "@release-it/keep-a-changelog": "^3.0.0",
     "@types/axios": "^0.14.0",
     "@types/jest": "^27.0.0",
     "@types/pako": "^1.0.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^27.0.4",
+    "jest": "^28.0.0",
+    "jest-environment-jsdom": "^28.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.1",
-    "release-it": "^14.12.4",
-    "ts-jest": "^27.0.3",
+    "release-it": "^15.0.0",
+    "ts-jest": "^28.0.0",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.4",
     "webpack": "^5.39.1",
@@ -49,7 +50,7 @@
   },
   "dependencies": {
     "ajv": "^8.6.0",
-    "axios": "^0.26.0",
+    "axios": "^0.27.0",
     "pako": "^2.0.3",
     "skyway-js": "^4.4.1",
     "tslib": "^2.3.0"
