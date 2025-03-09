@@ -1008,12 +1008,13 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@release-it/keep-a-changelog@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@release-it/keep-a-changelog/-/keep-a-changelog-5.0.0.tgz#2685acb9ef0c4ad30797c5b68565c3325691f02d"
-  integrity sha512-Y1xqZe50jqK8qKlzEfGLVTjSkn57e/QlQMXHhKRWGgsv8Qy/X0LN1CJphoskZu7p7sAD3RihxhXrjJhRPE4JcA==
+"@release-it/keep-a-changelog@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@release-it/keep-a-changelog/-/keep-a-changelog-6.0.0.tgz#2fcdb41f531ec86c35b73aced8cccdb79fc76a51"
+  integrity sha512-+z3Hzo96v4rI4AU0DyRXclc1FKgjfVUk5cxYktjmHE4t5e/M3jyolvZZsBOna+3fRmmo86M2+BrtZvy5gj3qag==
   dependencies:
     detect-newline "^4.0.1"
+    semver "^7.6.3"
     string-template "^1.0.0"
 
 "@sec-ant/readable-stream@^0.4.1":
